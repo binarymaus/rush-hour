@@ -18,9 +18,17 @@ button {
   outline: none;
 }
 
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
 body {
   /*background-image: url('http://image.shutterstock.com/z/stock-vector-a-cartoon-traffic-jam-scene-cityscape-traffic-52014274.jpg');*/
-  background-image: url('http://previews.123rf.com/images/suslo/suslo1403/suslo140300024/27362452-Bright-Cartoon-seamless-pattern-with-cars-and-traffic-signs-Stock-Vector.jpg');
+  background-image: url('https://a.rgbimg.com/users/m/mz/mzacha/600/nLyiSEO.jpg');
   background-repeat: repeat-x;
   background-size: cover;
   font-family: 'Skranji', cursive;
@@ -108,29 +116,60 @@ li {
   padding-left: 5px;
 }
 
+.train-start-right {
+  background-image: url('../src/train-start-right.png');
+  background-size: 60px 60px;
+}
+
+.train-body-right {
+  background-image: url('../src/train-body-right.png');
+  background-size: 60px 60px;
+}
+
+.train-end-right {
+  background-image: url('../src/train-end-right.png');
+  background-size: 60px 60px;
+}
+
+.train-start-down {
+  background-image: url('../src/train-start-down.png');
+  background-size: 60px 60px;
+}
+
+.train-body-down {
+  background-image: url('../src/train-body-down.png');
+  background-size: 60px 60px;
+}
+
+.train-end-down {
+  background-image: url('../src/train-end-down.png');
+  background-size: 60px 60px;
+}
+
 .red {
-  background-color: #EA1821;
+  /* background-color: #EA1821; */
   /*EE1122*/
   border: none;
 }
+
 .green {
-  background-color: #88CC33;
+  /* background-color: #88CC33; */
   border: none;
 }
 .yellow {
-  background-color: #FFFF46;
+  /* background-color: #FFFF46; */
   border: none;
 }
 .purple {
-  background-color: #8E1E9C;
+  /* background-color: #8E1E9C; */
   border: none;
 }
 .blue {
-  background-color: #4545FF;
+  /* background-color: #4545FF; */
   border: none;
 }
 .orange {
-  background-color: #FFAA00;
+  /* background-color: #FFAA00; */
   border: none;
 }
 

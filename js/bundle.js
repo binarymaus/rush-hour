@@ -42,7 +42,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -129,9 +129,9 @@
 	  var view = new _view2.default(board, container);
 	};
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -150,6 +150,11 @@
 	    this.length = length;
 	    this.color = color;
 	    this.startPos = startPos;
+	    if (orientation === "right") {
+	      this.endPos = [startPos[0], startPos[1] - (length - 1)];
+	    } else {
+	      this.endPos = [startPos[0] - (length - 1), startPos[1]];
+	    }
 	    this.orientation = orientation;
 	    this.segments = [startPos];
 	    this.setUpBody();
@@ -207,6 +212,8 @@
 	          this.segments.unshift(newHead);
 	          this.segments.pop();
 	          window.moveCount += 1;
+	          this.startPos = this.segments[0];
+	          this.endPos = this.segments[this.length - 1];
 	        }
 	      } else if (dir[0] === this.directionTranslate()[0] * -1 && dir[1] === this.directionTranslate()[1] * -1) {
 	        oldHead = this.segments[this.length - 1];
@@ -217,8 +224,11 @@
 	        }
 	        if (!$('li').eq(newHead[0] * 6 + newHead[1]).hasClass("car")) {
 	          this.segments.push(newHead);
+	          //let $square = $(`li`).eq(newHead[0] * this.grid.length + newHead[1]);
 	          this.segments.shift();
 	          window.moveCount += 1;
+	          this.startPos = this.segments[0];
+	          this.endPos = this.segments[this.length - 1];
 	        }
 	      }
 	    }
@@ -238,9 +248,9 @@
 	
 	exports.default = Car;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -276,14 +286,34 @@
 	        car.segments.forEach(function (square) {
 	          // $(`li[data-pos=[${square[0]}, ${square[1]}]`).addClass(car.color);
 	          var $square = $("li").eq(square[0] * _this.grid.length + square[1]);
+	          $square.removeClass("train-start-down");
+	          $square.removeClass("train-body-down");
+	          $square.removeClass("train-end-down");
+	          $square.removeClass("train-start-right");
+	          $square.removeClass("train-body-right");
+	          $square.removeClass("train-end-right");
 	          $square.addClass(car.color);
 	          $square.addClass("car");
+	          if (_this.arrayEquals(square, car.endPos)) {
+	            $square.addClass("train-end-" + car.orientation);
+	          } else if (_this.arrayEquals(square, car.startPos)) {
+	            $square.addClass("train-start-" + car.orientation);
+	          } else {
+	            $square.addClass("train-body-" + car.orientation);
+	          }
 	          $square.click(function () {
 	            $('.selected').removeClass("selected");
 	            $("." + car.color).addClass("selected");
 	            _this.selectedCar = car;
 	          });
 	        });
+	      });
+	    }
+	  }, {
+	    key: "arrayEquals",
+	    value: function arrayEquals(a, b) {
+	      return Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every(function (val, index) {
+	        return val === b[index];
 	      });
 	    }
 	  }, {
@@ -302,9 +332,9 @@
 	
 	exports.default = Board;
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -394,6 +424,6 @@
 	
 	exports.default = View;
 
-/***/ }
+/***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map

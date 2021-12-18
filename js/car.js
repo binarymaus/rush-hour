@@ -3,6 +3,11 @@ class Car {
     this.length = length;
     this.color = color;
     this.startPos = startPos;
+    if(orientation === "right") {
+      this.endPos = [startPos[0], startPos[1] - (length - 1)];
+    } else {
+      this.endPos = [startPos[0] - (length - 1), startPos[1]];
+    }
     this.orientation = orientation;
     this.segments = [startPos];
     this.setUpBody();
@@ -39,13 +44,12 @@ class Car {
       let bodyPart = [this.segments[i][0] + oppositeOrientation[0], this.segments[i][1] + oppositeOrientation[1]];
       this.segments.push(bodyPart);
     }
-
   }
 
   move(direction) {
     let dir = this.directionTranslate(direction);
     let oldHead, newHead;
-
+ 
     if (direction === this.orientation) {
       oldHead = this.segments[0];
       newHead = [oldHead[0] + dir[0], oldHead[1] + dir[1]];
@@ -57,6 +61,8 @@ class Car {
         this.segments.unshift(newHead);
         this.segments.pop();
         window.moveCount += 1;
+        this.startPos = this.segments[0];
+        this.endPos = this.segments[this.length-1];
       }
 
     } else if (dir[0] === this.directionTranslate()[0] * -1 && dir[1] === this.directionTranslate()[1] * -1) {
@@ -68,8 +74,11 @@ class Car {
       }
       if (!$('li').eq(newHead[0] * 6 + newHead[1]).hasClass("car")) {
         this.segments.push(newHead);
+        //let $square = $(`li`).eq(newHead[0] * this.grid.length + newHead[1]);
         this.segments.shift();
         window.moveCount += 1;
+        this.startPos = this.segments[0];
+        this.endPos = this.segments[this.length-1];
       }
 
     }
